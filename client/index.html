@@ -6,6 +6,7 @@
   </head>
   <body>
     <div class='container'>
+      <div class="logo"><h2>A&K Entertainment</h2></div>
       <div class="title"><h1>Alex & Kyle's Excellent Adventure</div>
       <div class="scoreboard">
         <!-- Modify the scoreboard when important events occur in your game! -->
@@ -13,6 +14,18 @@
         <div class="current">Current score: <span>0</span></div>
         <div class="collisions">Collisions: <span>0</span></div>
       </div>
+      <div class="choose-player">
+        <button class="alex">
+          <p>Choose Alex!</p>
+        </button>
+        <button class="kyle">
+          <p>Choose Kyle!</p>
+        </button>
+      </div>
+      <audio id='myAudio' autoplay loop src = 'music.m4a'>
+      </audio>
+
+
       <script src="lib/d3.js" charset="utf-8"></script>
       <script src='watchout.js'></script>
     </div>

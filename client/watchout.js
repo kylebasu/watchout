@@ -25,8 +25,6 @@ for(var i=0; i<enemyLength; i++){
 
   }
 
-
-
 //Create Enemy Circles
 
 
@@ -38,9 +36,9 @@ svg.selectAll('.enemy').data(arr)
   .attr('y', function(d){return d[1]})
   //end random
   .attr('class', 'enemy')
-  .attr('width', 20)
-  .attr('height', 20)
-  .attr('xlink:href', 'img/invader.png')
+  .attr('width', 50)
+  .attr('height', 50)
+  .attr('xlink:href', 'img/invader.gif')
 
 for(var k=0; k<enemyLength; k++){
   enemyArray[k] = d3.selectAll('.enemy')[0][k];
@@ -67,62 +65,118 @@ var update = function() {
 
 }
 
-setInterval(update.bind(), 2000);
+setInterval(update, 2000);
 
 
 
 //Create Hero Circle
 
 
-// Create Hero Circle
-d3.select('svg').selectAll('hero').data([225])
-  .enter()
-  .append('circle')
-  .attr('cx', function(d){return d})
-  .attr('cy', '350')
-  .attr('r', '10')
-  .attr('fill', 'blue')
-  .attr('class', 'hero')
-  .style('cursor', 'pointer')
 
-var hero = d3.select('.hero');
-var drag = d3.behavior.drag();
+// Create Alex Hero Circle
+d3.selectAll('.alex').on('click', function(){
+  d3.select('svg').selectAll('hero').data([0])
+    .enter()
+    .append('image')
+    .attr('x', function(d){return d})
+    .attr('y', '0')
+    .attr('class', 'hero')
+    .attr('width', 50)
+    .attr('height', 50)
+    .attr('xlink:href', 'img/alex.png')
+    .style('cursor', 'pointer');
+
+  d3.selectAll('.kyle').style('visibility', 'hidden');
+  d3.selectAll('.alex').style('visibility', 'hidden');
 
 
+  var hero = d3.select('.hero');
+  var drag = d3.behavior.drag();
+
+  currentScore = 0;
+  highScore = 0;
+
+  hero.call(drag);
+
+  drag.on("drag", function() {
+    d3.event.sourceEvent.stopPropagation(); // silence other listeners
+    hero.attr('x', d3.event.x-20)
+      .attr('y', d3.event.y-25)
+
+    if(hero.attr('x') > 960){
+      hero.attr('x', '960');
+    } 
+    if(hero.attr('x') < 1){
+      hero.attr('x', '0');
+    } 
+    if(hero.attr('y') > 550){
+      hero.attr('y', '550');
+    } 
+    if(hero.attr('y') < 1){
+      hero.attr('y', '1');
+    }
+  });
+});
+
+// Create  Kyle Hero
+d3.selectAll('.kyle').on('click', function(){
+  d3.select('svg').selectAll('hero').data([0])
+    .enter()
+    .append('image')
+    .attr('x', function(d){return d})
+    .attr('y', '0')
+    .attr('class', 'hero')
+    .attr('width', 50)
+    .attr('height', 50)
+    .attr('xlink:href', 'img/kyle.png')
+    .style('cursor', 'pointer');
+
+  d3.selectAll('.kyle').style('visibility', 'hidden');
+  d3.selectAll('.alex').style('visibility', 'hidden');
+
+  var hero = d3.select('.hero');
+  var drag = d3.behavior.drag();
+
+  currentScore = 0;
+  highScore = 0;
+
+  hero.call(drag);
+
+   
+  drag.on("drag", function() {
+    d3.event.sourceEvent.stopPropagation(); // silence other listeners
+    hero.attr('x', d3.event.x-20)
+      .attr('y', d3.event.y-25)
+
+    if(hero.attr('x') > 960){
+      hero.attr('x', '960');
+    } 
+    if(hero.attr('x') < 1){
+      hero.attr('x', '0');
+    } 
+    if(hero.attr('y') > 550){
+      hero.attr('y', '550');
+    } 
+    if(hero.attr('y') < 1){
+      hero.attr('y', '1');
+    }
+  });
+});
 
 
-hero.call(drag);
+  
 
 //Drag Event and Can't drag out box
 
-drag.on("drag", function() {
-  d3.event.sourceEvent.stopPropagation(); // silence other listeners
-  hero.attr('cx', d3.event.x)
-    .attr('cy', d3.event.y)
 
-  if(hero.attr('cx') > 990){
-    hero.attr('cx', '990');
-  } 
-  if(hero.attr('cx') < 10){
-    hero.attr('cy', '10');
-  } 
-  if(hero.attr('cy') > 590){
-    hero.attr('cy', '590');
-  } 
-  if(hero.attr('cy') < 10){
-    hero.attr('cy', '10');
-  }
-
-
-});
 
 
 //Check Colissions
 var checkColissions = function(){
   for(var i=0; i<enemyLength; i++){
-    if(Math.sqrt(Math.pow((d3.select('.hero').attr('cx') - enemyArray[i].x.animVal.value), 2)
-      + Math.pow((d3.select('.hero').attr('cy') - enemyArray[i].y.animVal.value), 2))
-      < 17){
+    if(Math.sqrt(Math.pow((d3.select('.hero').attr('x') - enemyArray[i].x.animVal.value), 2)
+      + Math.pow((d3.select('.hero').attr('y') - enemyArray[i].y.animVal.value), 2))
+      < 30){
 
 
       if(highScore < currentScore){
@@ -143,7 +197,7 @@ var checkColissions = function(){
   }
 }
 
-setInterval(checkColissions.bind(), 1);
+setInterval(checkColissions, 1);
  
 
 
@@ -159,7 +213,4 @@ var currentCalc = function(){
   currentScore++;
 };
 
-setInterval(currentCalc.bind(), 100);
-
-
-
+setInterval(currentCalc, 100);
