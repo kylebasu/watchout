@@ -10,14 +10,17 @@ var highScore = 0;
 
 var colissions = 0;
 
+var width = '1000px';
+var height = '600px'
+
 var svg = d3.select('.container').append('svg')
-  .attr('width', '700px')
-  .attr('height', '450px');
+  .attr('width', width)
+  .attr('height', height);
 
 var arr =[]
 for(var i=0; i<enemyLength; i++){
-    var randomX = Math.random() * 700;
-    var randomY = Math.random() * 450
+    var randomX = Math.random() * 1000;
+    var randomY = Math.random() * 600;
     arr[i] = [randomX, randomY];
 
   }
@@ -35,8 +38,9 @@ svg.selectAll('.enemy').data(arr)
   .attr('cy', function(d){return d[1]})
   //end random
   .attr('r', '10')
-  .attr('fill', 'red')
-  .attr('class', 'enemy');
+  .attr('fill', 'white')
+  .attr('class', 'enemy')
+  .style('border', '10px solid black');
 
 for(var k=0; k<enemyLength; k++){
   enemyArray[k] = d3.selectAll('.enemy')[0][k];
@@ -47,8 +51,8 @@ var update = function() {
   var position =[];
 
   for(var i=0; i<enemyLength; i++){
-    var randomX = Math.random() * 700;
-    var randomY = Math.random() * 450
+    var randomX = Math.random() * 1000;
+    var randomY = Math.random() * 600;
     position[i] = [randomX, randomY];
 
   }
@@ -96,14 +100,14 @@ drag.on("drag", function() {
   hero.attr('cx', d3.event.x)
     .attr('cy', d3.event.y)
 
-  if(hero.attr('cx') > 690){
-    hero.attr('cx', '690');
+  if(hero.attr('cx') > 990){
+    hero.attr('cx', '990');
   } 
   if(hero.attr('cx') < 10){
     hero.attr('cx', '10');
   } 
-  if(hero.attr('cy') > 440){
-    hero.attr('cy', '440');
+  if(hero.attr('cy') > 590){
+    hero.attr('cy', '590');
   } 
   if(hero.attr('cy') < 10){
     hero.attr('cy', '10');

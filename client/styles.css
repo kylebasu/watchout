@@ -5,17 +5,17 @@ Feel free to use it if you like. */
 
 body {
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: VT323;
   font-size: 14px;
   background-color: black;
   /*background-image: url('img/bg.png');*/
 }
 
 .container {
-  width: 700px;
+  width: 1000px;
   height: 545px;
-  margin: 40px auto;
-  padding: 40px;
+  margin: 0 auto;
+  padding: 40px 0;
   background-color: black;
 }
 
@@ -33,8 +33,11 @@ body {
 }
 
 svg {
-  border: 3px solid #6EE8CB;
+  border: 3px dashed #6EE8CB;
   margin-top: 25px;
+  background-image: url('img/svg-bg.gif');
+  background-size: cover;
+  background-position: center;
 }
 
 .high {
@@ -49,10 +52,10 @@ svg {
   color: #6EE8CB;
 }
 
-.title {
+.title h1 {
   color: white;
   font-variant: small-caps;
-  font-size: 25px;
+  font-size: 35px;
   display: block;
   width: 450px;
   float: left;
