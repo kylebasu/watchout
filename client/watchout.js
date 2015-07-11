@@ -32,15 +32,15 @@ for(var i=0; i<enemyLength; i++){
 
 svg.selectAll('.enemy').data(arr)
   .enter()
-  .append('circle')
+  .append('image')
   //random
-  .attr('cx', function(d){return d[0]})
-  .attr('cy', function(d){return d[1]})
+  .attr('x', function(d){return d[0]})
+  .attr('y', function(d){return d[1]})
   //end random
-  .attr('r', '10')
-  .attr('fill', 'white')
   .attr('class', 'enemy')
-  .style('border', '10px solid black');
+  .attr('width', 20)
+  .attr('height', 20)
+  .attr('xlink:href', 'img/invader.png')
 
 for(var k=0; k<enemyLength; k++){
   enemyArray[k] = d3.selectAll('.enemy')[0][k];
@@ -60,8 +60,8 @@ var update = function() {
   d3.select('svg').selectAll('.enemy').data(position)
   .transition().duration(2000)
   //random
-  .attr('cx', function(d){return d[0]})
-  .attr('cy', function(d){return d[1]});
+  .attr('x', function(d){return d[0]})
+  .attr('y', function(d){return d[1]});
   //end random
 
 
@@ -104,7 +104,7 @@ drag.on("drag", function() {
     hero.attr('cx', '990');
   } 
   if(hero.attr('cx') < 10){
-    hero.attr('cx', '10');
+    hero.attr('cy', '10');
   } 
   if(hero.attr('cy') > 590){
     hero.attr('cy', '590');
@@ -120,9 +120,9 @@ drag.on("drag", function() {
 //Check Colissions
 var checkColissions = function(){
   for(var i=0; i<enemyLength; i++){
-    if(Math.sqrt(Math.pow((d3.select('.hero').attr('cx') - enemyArray[i].cx.animVal.value), 2)
-      + Math.pow((d3.select('.hero').attr('cy') - enemyArray[i].cy.animVal.value), 2))
-      < 21){
+    if(Math.sqrt(Math.pow((d3.select('.hero').attr('cx') - enemyArray[i].x.animVal.value), 2)
+      + Math.pow((d3.select('.hero').attr('cy') - enemyArray[i].y.animVal.value), 2))
+      < 17){
 
 
       if(highScore < currentScore){
