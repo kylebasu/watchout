@@ -7,7 +7,8 @@ body {
   box-sizing: border-box;
   font-family: sans-serif;
   font-size: 14px;
-  background-image: url('img/bg.png');
+  background-color: black;
+  /*background-image: url('img/bg.png');*/
 }
 
 .container {
@@ -15,10 +16,12 @@ body {
   height: 545px;
   margin: 40px auto;
   padding: 40px;
-  background-color: white;
+  background-color: black;
 }
 
 .scoreboard {
+  display: block;
+  width: 250px;
   float: right;
   text-align: right;
   font-size: 24px;
@@ -26,4 +29,32 @@ body {
 
 .scoreboard div {
   line-height: 30px;
+  letter-spacing: 1.5px;
+}
+
+svg {
+  border: 3px solid #6EE8CB;
+  margin-top: 25px;
+}
+
+.high {
+  color: #6EE8CB;
+}
+
+.current {
+  color: #6EE8CB;
+}
+
+.collisions {
+  color: #6EE8CB;
+}
+
+.title {
+  color: white;
+  font-variant: small-caps;
+  font-size: 25px;
+  display: block;
+  width: 450px;
+  float: left;
+  letter-spacing: .5px;
 }

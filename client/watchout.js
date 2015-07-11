@@ -4,14 +4,22 @@
 
 var enemyLength = 15;
 
+var enemyArray = [];
+
+var highScore = 0;
+
+var colissions = 0;
+
 var svg = d3.select('.container').append('svg')
   .attr('width', '700px')
   .attr('height', '450px');
 
 var arr =[]
-  for(var i=0; i<enemyLength; i++){
-    var random = Math.random() * 700;
-    arr[i] = random;
+for(var i=0; i<enemyLength; i++){
+    var randomX = Math.random() * 700;
+    var randomY = Math.random() * 450
+    arr[i] = [randomX, randomY];
+
   }
 
 
@@ -23,14 +31,16 @@ svg.selectAll('.enemy').data(arr)
   .enter()
   .append('circle')
   //random
-  .attr('cx', function(d){return d})
-  .attr('cy', function(d){return d * Math.random()})
+  .attr('cx', function(d){return d[0]})
+  .attr('cy', function(d){return d[1]})
   //end random
   .attr('r', '10')
   .attr('fill', 'red')
   .attr('class', 'enemy');
 
-
+for(var k=0; k<enemyLength; k++){
+  enemyArray[k] = d3.selectAll('.enemy')[0][k];
+}
 
 
 var update = function() {
@@ -40,8 +50,8 @@ var update = function() {
     var randomX = Math.random() * 700;
     var randomY = Math.random() * 450
     position[i] = [randomX, randomY];
-  }
 
+  }
 
   d3.select('svg').selectAll('.enemy').data(position)
   .transition().duration(2000)
@@ -99,7 +109,41 @@ drag.on("drag", function() {
     hero.attr('cy', '10');
   }
 
+
 });
+
+
+//Check Colissions
+var checkColissions = function(){
+  for(var i=0; i<enemyLength; i++){
+    if(Math.sqrt(Math.pow((d3.select('.hero').attr('cx') - enemyArray[i].cx.animVal.value), 2)
+      + Math.pow((d3.select('.hero').attr('cy') - enemyArray[i].cy.animVal.value), 2))
+      < 21){
+
+
+      if(highScore < currentScore){
+        highScore = currentScore;
+        d3.select('.high').selectAll('span')
+          .text(highScore);
+      }
+
+      if(currentScore > 1){
+        colissions++;
+         d3.select('.collisions').selectAll('span')
+    .text(colissions);
+      }
+
+      currentScore = 0;
+      
+    }
+  }
+}
+
+setInterval(checkColissions.bind(), 1);
+ 
+
+
+
 
 
 //Current Score
@@ -111,4 +155,7 @@ var currentCalc = function(){
   currentScore++;
 };
 
-setInterval(currentCalc.bind(), 75);
+setInterval(currentCalc.bind(), 100);
+
+
+
